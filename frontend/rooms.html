@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooms</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Rooms</h1>
+
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="rooms.html">Rooms</a>
+    </nav>
+  </header>
+
+  <div class="room-search-section">
+    <input type="text" id="roomSearch" placeholder="Search luxury rooms...">
+
+    <select id="roomFilter">
+      <option value="all">All Room Types</option>
+      <option value="Single Room">Single Room</option>
+      <option value="Double Room">Double Room</option>
+      <option value="Suite Room">Suite Room</option>
+    </select>
+  </div>
+
+  <section class="page-title">
+    <h2>Room Management</h2>
+    <p>View all resort rooms and their availability</p>
+  </section>
+
+  <main>
+    <div class="card-container" id="roomsContainer"></div>
+  </main>
+
+  <footer>
+    <p>© 2026 Resort Management System | Luxury Stay Experience</p>
+  </footer>
+
+  <script>
+    const roomSearch = document.getElementById('roomSearch');
+    const roomFilter = document.getElementById('roomFilter');
+
+    async function loadRooms() {
+      try {
+        const response = await fetch('http://localhost:5000/rooms');
+        const rooms = await response.json();
+
+        const roomsContainer = document.getElementById('roomsContainer');
+        roomsContainer.innerHTML = '';
+
+        const filteredRooms = rooms.filter((room) => {
+          const matchesSearch =
+            room.room_number.toString().includes(roomSearch.value) ||
+            room.room_type.toLowerCase().includes(roomSearch.value.toLowerCase());
+
+          const matchesFilter =
+            roomFilter.value === 'all' ||
+            room.room_type === roomFilter.value;
+
+          return matchesSearch && matchesFilter;
+        });
+
+        filteredRooms.forEach((room) => {
+          roomsContainer.innerHTML += `
+            <div class="card">
+              <img 
+  src="${room.room_type === 'Single Room'
+              ? 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85'
+              : room.room_type === 'Double Room'
+                ? 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267'
+                : 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461'
+            }"
+  alt="Room Image"
+>
+              <div class="room-badge">
+                Premium Room
+                  </div>
+
+              <div class="card-content">
+                <h2>Room ${room.room_number}</h2>
+                <p>${room.room_type}</p>
+                <p class="room-price">₹12,999 / night</p>
+                  <div class="room-rating">
+                    ★★★★★
+                      </div>
+                <p>
+                  Status:
+                  <span class="${room.status.toLowerCase()}">
+                    ${room.status}
+                  </span>
+                </p>
+              </div>
+            </div>
+          `;
+        });
+      } catch (error) {
+        console.log('Error loading rooms:', error);
+      }
+    }
+
+    loadRooms();
+
+    roomSearch.addEventListener('input', loadRooms);
+    roomFilter.addEventListener('change', loadRooms);
+  </script>
+
+</body>
+
+</html>
