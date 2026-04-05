@@ -198,3 +198,43 @@ app.post('/reviews', (req, res) => {
     }
   });
 });
+
+app.post('/signup', (req, res) => {
+  const { full_name, email, password } = req.body;
+
+  const sql = `
+    INSERT INTO users (full_name, email, password)
+    VALUES (?, ?, ?)
+  `;
+
+  db.query(sql, [full_name, email, password], (err, result) => {
+    if (err) {
+      return res.status(500).json({ message: 'Signup failed' });
+    }
+
+    res.json({ message: 'Signup successful' });
+  });
+});
+
+app.post('/login', (req, res) => {
+  const email = req.body.email.trim();
+  const password = req.body.password.trim();
+
+  const sql = `
+    SELECT * FROM users
+    WHERE email = ? AND password = ?
+  `;
+
+  db.query(sql, [email, password], (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ message: 'Login failed' });
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true, user: results[0] });
+    } else {
+      res.json({ success: false, message: 'Invalid email or password' });
+    }
+  });
+});

@@ -1005,3 +1005,70 @@ nav a:hover {
 .card {
   text-decoration: none;
 }
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('https://images.unsplash.com/photo-1566073771259-6a8506099945') center/cover no-repeat;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+.login-card h1 {
+  color: #f5d76e;
+  margin-bottom: 10px;
+  font-size: 42px;
+}
+
+.login-card p {
+  color: #ddd;
+  margin-bottom: 25px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+.login-card input::placeholder {
+  color: #bbb;
+}
+
+.login-card button {
+  width: 100%;
+}
+
+.login-footer-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.login-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.login-tabs button {
+  flex: 1;
+}
