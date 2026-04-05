@@ -10,11 +10,11 @@
 
 <body>
   <div id="loader">
-  <div class="loader-content">
-    <h1>Luxury Resort</h1>
-    <div class="loader-line"></div>
+    <div class="loader-content">
+      <h1>Luxury Resort</h1>
+      <div class="loader-line"></div>
+    </div>
   </div>
-</div>
 
   <header>
     <h1>Resort Management System</h1>
@@ -23,39 +23,43 @@
       <a href="index.html">Dashboard</a>
       <a href="bookings.html">Bookings</a>
       <a href="rooms.html">Rooms</a>
+      <a href="guests.html">Guests</a>
+      <a href="payments.html">Payments</a>
+      <a href="staff.html">Staff</a>
+      <a href="reviews.html">Reviews</a>
     </nav>
   </header>
 
   <section class="welcome-banner">
-  <div>
-    <h2>Welcome Back, Admin</h2>
-    <p>Manage bookings, rooms, guests, and resort operations from one place.</p>
-  </div>
+    <div>
+      <h2>Welcome Back, Admin</h2>
+      <p>Manage bookings, rooms, guests, and resort operations from one place.</p>
+    </div>
 
-  <button>View Reports</button>
-</section>
+    <button>View Reports</button>
+  </section>
 
-<section class="booking-summary">
-  <div class="summary-card">
-    <h3>128</h3>
-    <p>Total Bookings</p>
-  </div>
+  <section class="booking-summary">
+    <div class="summary-card">
+      <h3>128</h3>
+      <p>Total Bookings</p>
+    </div>
 
-  <div class="summary-card">
-    <h3>42</h3>
-    <p>Available Rooms</p>
-  </div>
+    <div class="summary-card">
+      <h3>42</h3>
+      <p>Available Rooms</p>
+    </div>
 
-  <div class="summary-card">
-    <h3>18</h3>
-    <p>VIP Guests</p>
-  </div>
+    <div class="summary-card">
+      <h3>18</h3>
+      <p>VIP Guests</p>
+    </div>
 
-  <div class="summary-card">
-    <h3>₹8.4L</h3>
-    <p>Monthly Revenue</p>
-  </div>
-</section>
+    <div class="summary-card">
+      <h3>₹8.4L</h3>
+      <p>Monthly Revenue</p>
+    </div>
+  </section>
 
   <section class="hero">
     <div class="hero-content">
@@ -67,8 +71,8 @@
       </p>
 
       <div class="hero-buttons">
-       <a href="bookings.html" class="hero-btn">Book Now</a>
-       <a href="rooms.html" class="hero-btn secondary-btn">Explore Rooms</a>
+        <a href="bookings.html" class="hero-btn">Book Now</a>
+        <a href="rooms.html" class="hero-btn secondary-btn">Explore Rooms</a>
       </div>
     </div>
   </section>
@@ -183,33 +187,33 @@
   </section>
 
   <section class="amenities-section">
-  <div class="section-heading">
-    <h2>Luxury Amenities</h2>
-    <p>Everything you need for a perfect stay</p>
-  </div>
-
-  <div class="amenities-container">
-    <div class="amenity-card">
-      <h3>🏊 Infinity Pool</h3>
-      <p>Relax with breathtaking poolside views.</p>
+    <div class="section-heading">
+      <h2>Luxury Amenities</h2>
+      <p>Everything you need for a perfect stay</p>
     </div>
 
-    <div class="amenity-card">
-      <h3>💆 Spa & Wellness</h3>
-      <p>Premium spa services for complete relaxation.</p>
-    </div>
+    <div class="amenities-container">
+      <div class="amenity-card">
+        <h3>🏊 Infinity Pool</h3>
+        <p>Relax with breathtaking poolside views.</p>
+      </div>
 
-    <div class="amenity-card">
-      <h3>🍽 Fine Dining</h3>
-      <p>Luxury dining experiences with world-class chefs.</p>
-    </div>
+      <div class="amenity-card">
+        <h3>💆 Spa & Wellness</h3>
+        <p>Premium spa services for complete relaxation.</p>
+      </div>
 
-    <div class="amenity-card">
-      <h3>🏖 Private Beach</h3>
-      <p>Exclusive access to a beautiful private beach.</p>
+      <div class="amenity-card">
+        <h3>🍽 Fine Dining</h3>
+        <p>Luxury dining experiences with world-class chefs.</p>
+      </div>
+
+      <div class="amenity-card">
+        <h3>🏖 Private Beach</h3>
+        <p>Exclusive access to a beautiful private beach.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="hero">
     <div class="hero-content">
@@ -225,15 +229,35 @@
 
   <main>
     <div class="card-container">
-      <div class="card">
-        <h2>  Total Rooms</h2>
+      <a href="rooms.html" class="card">
+        <h2>Total Rooms</h2>
         <p id="totalRooms">0</p>
-      </div>
+      </a>
 
-      <div class="card">
-        <h2>  Total Bookings</h2>
+      <a href="bookings.html" class="card">
+        <h2>Total Bookings</h2>
         <p id="totalBookings">0</p>
-      </div>
+      </a>
+
+      <a href="guests.html" class="card">
+        <h2>Guests</h2>
+        <p>Manage</p>
+      </a>
+
+      <a href="payments.html" class="card">
+        <h2>Payments</h2>
+        <p>Track</p>
+      </a>
+
+      <a href="staff.html" class="card">
+        <h2>Staff</h2>
+        <p>Manage</p>
+      </a>
+
+      <a href="reviews.html" class="card">
+        <h2>Reviews</h2>
+        <p>View</p>
+      </a>
     </div>
   </main>
 
@@ -266,25 +290,25 @@
     <p>Experience comfort, elegance, and unforgettable stays.</p>
   </footer>
 
-<script>
-  function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  <script>
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }, 1200);
     });
-  }
-</script>
-
-<script>
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-
-    setTimeout(() => {
-      loader.style.opacity = '0';
-      loader.style.visibility = 'hidden';
-    }, 1200);
-  });
-</script>
+  </script>
 
 </body>
 

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Payments</h1>
+
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="guests.html">Guests</a>
+      <a href="payments.html">Payments</a>
+      <a href="staff.html">Staff</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+  </header>
+
+  <section class="page-title">
+    <h2>Payment Management</h2>
+    <p>Track resort payments and transaction status</p>
+  </section>
+
+  <form id="paymentForm">
+    <input type="number" id="bookingId" placeholder="Booking ID" required>
+    <input type="number" id="paymentAmount" placeholder="Amount" required>
+    
+    <select id="paymentMethod" required>
+      <option value="">Select Payment Method</option>
+      <option value="Cash">Cash</option>
+      <option value="Card">Card</option>
+      <option value="UPI">UPI</option>
+      <option value="Net Banking">Net Banking</option>
+    </select>
+
+    <select id="paymentStatus" required>
+      <option value="">Select Payment Status</option>
+      <option value="Paid">Paid</option>
+      <option value="Pending">Pending</option>
+      <option value="Failed">Failed</option>
+    </select>
+
+    <button type="submit">Add Payment</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Booking ID</th>
+        <th>Amount</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id="paymentTableBody"></tbody>
+  </table>
+
+  <footer>
+    <p><strong>Luxury Resort Management System</strong></p>
+    <p>Experience comfort, elegance, and unforgettable stays.</p>
+  </footer>
+
+  <script>
+  const paymentForm = document.getElementById('paymentForm');
+  const paymentTableBody = document.getElementById('paymentTableBody');
+
+  async function loadPayments() {
+    const response = await fetch('http://localhost:5000/payments');
+    const payments = await response.json();
+
+    paymentTableBody.innerHTML = '';
+
+    payments.forEach((payment) => {
+      paymentTableBody.innerHTML += `
+        <tr>
+          <td>${payment.id}</td>
+          <td>${payment.booking_id}</td>
+          <td>₹${payment.amount}</td>
+          <td>${payment.method}</td>
+          <td>${payment.status}</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  paymentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const paymentData = {
+      booking_id: document.getElementById('bookingId').value,
+      amount: document.getElementById('paymentAmount').value,
+      method: document.getElementById('paymentMethod').value,
+      status: document.getElementById('paymentStatus').value
+    };
+
+    await fetch('http://localhost:5000/payments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(paymentData)
+    });
+
+    paymentForm.reset();
+    loadPayments();
+  });
+
+  loadPayments();
+</script>
+
+</body>
+</html>

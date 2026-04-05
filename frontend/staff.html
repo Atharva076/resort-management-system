@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Staff</h1>
+
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="guests.html">Guests</a>
+      <a href="payments.html">Payments</a>
+      <a href="staff.html">Staff</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+  </header>
+
+  <section class="page-title">
+    <h2>Staff Management</h2>
+    <p>Manage resort employees and their shifts</p>
+  </section>
+
+  <form id="staffForm">
+    <input type="text" id="staffName" placeholder="Full Name" required>
+
+    <select id="staffDepartment" required>
+      <option value="">Select Department</option>
+      <option value="Reception">Reception</option>
+      <option value="Housekeeping">Housekeeping</option>
+      <option value="Kitchen">Kitchen</option>
+      <option value="Security">Security</option>
+      <option value="Management">Management</option>
+    </select>
+
+    <select id="staffShift" required>
+      <option value="">Select Shift Time</option>
+      <option value="Morning">Morning</option>
+      <option value="Afternoon">Afternoon</option>
+      <option value="Night">Night</option>
+    </select>
+
+    <button type="submit">Add Staff</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Department</th>
+        <th>Shift Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id="staffTableBody"></tbody>
+  </table>
+
+  <footer>
+    <p><strong>Luxury Resort Management System</strong></p>
+    <p>Experience comfort, elegance, and unforgettable stays.</p>
+  </footer>
+
+<script>
+  const staffForm = document.getElementById('staffForm');
+  const staffTableBody = document.getElementById('staffTableBody');
+
+  async function loadStaff() {
+    const response = await fetch('http://localhost:5000/staff');
+    const staff = await response.json();
+
+    staffTableBody.innerHTML = '';
+
+    staff.forEach((member) => {
+      staffTableBody.innerHTML += `
+        <tr>
+          <td>${member.id}</td>
+          <td>${member.full_name}</td>
+          <td>${member.department}</td>
+          <td>${member.shift_time}</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  staffForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const staffData = {
+      full_name: document.getElementById('staffName').value,
+      department: document.getElementById('staffDepartment').value,
+      shift_time: document.getElementById('staffShift').value
+    };
+
+    await fetch('http://localhost:5000/staff', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(staffData)
+    });
+
+    staffForm.reset();
+    loadStaff();
+  });
+
+  loadStaff();
+</script>
+
+</body>
+</html>

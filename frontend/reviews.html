@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Reviews</h1>
+
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="bookings.html">Bookings</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="guests.html">Guests</a>
+      <a href="payments.html">Payments</a>
+      <a href="staff.html">Staff</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+  </header>
+
+  <section class="page-title">
+    <h2>Review Management</h2>
+    <p>Track guest ratings and feedback</p>
+  </section>
+
+  <form id="reviewForm">
+    <input type="number" id="userId" placeholder="User ID" required>
+    <input type="number" id="roomId" placeholder="Room ID" required>
+
+    <select id="rating" required>
+      <option value="">Select Rating</option>
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="5">5 Stars</option>
+    </select>
+
+    <input type="text" id="comment" placeholder="Comment" required>
+
+    <button type="submit">Add Review</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User ID</th>
+        <th>Room ID</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id="reviewTableBody"></tbody>
+  </table>
+
+  <footer>
+    <p><strong>Luxury Resort Management System</strong></p>
+    <p>Experience comfort, elegance, and unforgettable stays.</p>
+  </footer>
+
+  <script>
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewTableBody = document.getElementById('reviewTableBody');
+
+  async function loadReviews() {
+    const response = await fetch('http://localhost:5000/reviews');
+    const reviews = await response.json();
+
+    reviewTableBody.innerHTML = '';
+
+    reviews.forEach((review) => {
+      reviewTableBody.innerHTML += `
+        <tr>
+          <td>${review.id}</td>
+          <td>${review.user_id}</td>
+          <td>${review.room_id}</td>
+          <td>${review.rating} ★</td>
+          <td>${review.comment}</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const reviewData = {
+      user_id: document.getElementById('userId').value,
+      room_id: document.getElementById('roomId').value,
+      rating: document.getElementById('rating').value,
+      comment: document.getElementById('comment').value
+    };
+
+    await fetch('http://localhost:5000/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reviewData)
+    });
+
+    reviewForm.reset();
+    loadReviews();
+  });
+
+  loadReviews();
+</script>
+
+</body>
+</html>
